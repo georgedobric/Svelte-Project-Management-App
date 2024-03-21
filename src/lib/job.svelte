@@ -1,28 +1,15 @@
 <!-- <script context="module"> -->
 <script>
-      import { writable, derived } from 'svelte/store';
-    // export let job = {
-    //   id: 1,
-    //   title: "Ticket",
-    //   tree: [
-    //     {
-    //       nodeID: [1, 1],
-    //       hierarchy: [1],
-    //       subject: "Root"
-    //     },
-    //     {
-    //       nodeID: [1, 2],
-    //       hierarchy: [1],
-    //       subject: "Second"
-    //     },
-    //   ],
-    // };
-    // export let frame = 'joe';
-    // export let onJobsChange;
+    // import { writable, derived } from 'svelte/store';
+    import { createEventDispatcher } from "svelte";
+
+    const disatch = createEventDispatcher();
+
     export let jobs = [
         {
             id: 1,
             title: 'First Job',
+            selected: true,
             tree: [
                 {
                 nodeID: [1, 1],
@@ -39,6 +26,7 @@
         {
             id: 2,
             title: 'Second Job',
+            selected: false,
             tree: [
                 {
                 nodeID: [1, 1],
@@ -54,55 +42,38 @@
         },
     ];
     
-    // export let addedJob = writable();
-    // addedJob.subscribe(($addedJob) => {
-    //     jobs = [...jobs, addedJob];
-    //     console.log(jobs);
-    // })
-
-    // let newJobs;
-    // function updateJobs() {
-    //     newJobs = [...jobs, addedJob];
-    //     // jobs = newJobs;
-    //     console.log('heyo');
-    //     // jobs = [...jobs, addedJob];
-    // }
-    // export let addedJob;
-    // $: {
-    //     console.log(addedJob);
-    //     updateJobs();
-    // }
-    // $: {
-        // jobs = newJobs;
-    // }
 
     export let selectedJob = 0;
     let selectedJob2 = 0;
+    $: count = 0;
     function jobSelector(selection) {
-        // selectedJob = selection;
-        selectedJob2 = selection;
-        console.log('selectedJob: ' + selectedJob);
-        console.log('selection: ' + selection);
+        jobs.forEach(job => {
+            console.log(job.id== selection);
+            if (job.id == selection){
+                jobs[job.id].selected = true;
+            }
+            else {
+                jobs[job.id].selected = false;
+            }
+        });
     }
+
 </script>
-
-<!-- <p>and the name is: {frame}</p> -->
-
     {#each jobs as n}
-    <button class="job" on:click={jobSelector(n.id)}>
+    {#if n.selected == true}
+    <button class="selectedJob" on:click={jobSelector(n.id)}>
         <h1>
-            {n.title}
+                {n.title}
         </h1>
     </button>
-
-    {/each}
-
-    <!-- <button class="job">
+    {:else if n.selected == false}
+    <button class="job" on:click={jobSelector(n.id)}>
         <h1>
-            {addedJob.title}
+                {n.title}
         </h1>
-    </button> -->
-
+    </button>
+    {/if}
+    {/each}
 
 <style>
     .job {
@@ -110,6 +81,22 @@
         display: flex;
         color:black;
         background-color:lemonchiffon;
+        border: 5px solid black;
+        border-color: black;
+        border-top-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        width: 15vw;
+        height: 5em;
+        top:10px;
+        text-align: center;
+        justify-content: center;
+        align-items:center;
+    }
+    .selectedJob {
+        position:relative;
+        display: flex;
+        color:black;
+        background-color:cornflowerblue;
         border: 5px solid black;
         border-color: black;
         border-top-left-radius: 25px;

@@ -17,6 +17,7 @@
     let addedJob = {
         id: jobs.length,
         title: 'ermm',
+        selected: false,
         tree: [
             {
                 nodeID: [1, 1],
@@ -30,6 +31,7 @@
         let addedJobFilled = {
         id: jobs.length,
         title: 'ermm',
+        selected: false,
         tree: [
             {
                 nodeID: [1, 1],
@@ -74,33 +76,11 @@
 
 <jobContainer>
     <Job bind:jobs={jobs} />
-    <!-- <Job bind:jobs={newJobs} /> -->
-
     <button class="addButton" on:click={ () => addJob()}>
         +
     </button>
-
-    <!-- <input type="text" bind:value={name}> -->
-
-    <!-- <div class="job">
-        {frame}
-    </div>
-    <div class="job">
-        {name}
-    </div> -->
-
-
-    <!-- {#each jobs as n}
-
-    <button class="job" on:click={ () => jobSelector(n.id)}>
-        <h1>
-            {n.title}
-        </h1>
-    </button>
-
-    {/each} -->
 </jobContainer>
-<!-- <Job onJobsChange="{(jobs) => newJobs = jobs}" /> -->
+
 <nodeContainer>
     <button class="addButton" on:click={addNode}>
         +
