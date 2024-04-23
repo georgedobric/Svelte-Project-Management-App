@@ -6,58 +6,65 @@
     const disatch = createEventDispatcher();
 
     export let jobs = [
-        {
-            id: 1,
-            title: 'First Job',
-            selected: true,
-            tree: [
-                {
-                nodeID: [1, 1],
-                hierarchy: [1],
-                subject: "JOB1: 1,1"
-                },
-                {
-                nodeID: [1, 2],
-                hierarchy: [1],
-                subject: "JOB1: 1,2"
-                },
-            ],
-        },
-        {
-            id: 2,
-            title: 'Second Job',
-            selected: false,
-            tree: [
-                {
-                nodeID: [1, 1],
-                hierarchy: [1],
-                subject: "JOB2: 1,1"
-                },
-                {
-                nodeID: [1, 2],
-                hierarchy: [1],
-                subject: "JOB2: 1,2"
-                },
-            ],
-        },
+        // {
+        //     id: 1,
+        //     title: 'First Job',
+        //     selected: true,
+        //     tree: [
+        //         {
+        //         nodeID: [1, 1],
+        //         hierarchy: [1],
+        //         subject: "JOB1: 1,1"
+        //         },
+        //         {
+        //         nodeID: [1, 2],
+        //         hierarchy: [1],
+        //         subject: "JOB1: 1,2"
+        //         },
+        //     ],
+        // },
+        // {
+        //     id: 2,
+        //     title: 'Second Job',
+        //     selected: false,
+        //     tree: [
+        //         {
+        //         nodeID: [1, 1],
+        //         hierarchy: [1],
+        //         subject: "JOB2: 1,1"
+        //         },
+        //         {
+        //         nodeID: [1, 2],
+        //         hierarchy: [1],
+        //         subject: "JOB2: 1,2"
+        //         },
+        //     ],
+        // },
     ];
     
 
-    export let selectedJob = 0;
-    let selectedJob2 = 0;
+    let selectedJobAssign = 0;
+    // export let selectedJob = selectedJobAssign;
+    export let selectedJob;// = selectedJobAssign;
     $: count = 0;
     function jobSelector(selection) {
         jobs.forEach(job => {
-            console.log(job.id== selection);
             if (job.id == selection){
                 jobs[job.id].selected = true;
+                // selectedJobAssign = job.id;
+                selectedJob = job.id;
             }
             else {
                 jobs[job.id].selected = false;
             }
         });
+        console.log("Job Component Jobs: ")
+        console.log(jobs);
+        console.log("Job Component Selected Job: ");
+        console.log(selectedJob);
     }
 
+    
 </script>
     {#each jobs as n}
     {#if n.selected == true}
