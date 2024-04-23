@@ -31,7 +31,7 @@
         const newJobTitle = prompt('Enter a title for your new job: ');
         let addedJobFilled = {
             id: jobs.length,
-            title: '',
+            title: 'job #' + (jobs.length + 1),
             selected: false,
             tree: [
                 {
@@ -42,7 +42,9 @@
             ]
         };
         addedJob = addedJobFilled;
-        addedJob.title = newJobTitle;
+        if (newJobTitle !== ''){
+            addedJob.title = newJobTitle;
+        }
 
         jobs = [...jobs, addedJob];
         // console.log({jobs});
@@ -50,7 +52,12 @@
         console.log("Main Component: ");
         console.log(jobs);
         console.log("Main Selected Job: ");
-        console.log(selectedJob);
+        // console.log(selectedJob);
+        for (let i = 0;i<=jobs.length-1;i++){
+            if (jobs[i].selected == true){
+                console.log(jobs[i].id);
+            }
+        }
     }
     // let newJobs;
     // function updateJobs() {
