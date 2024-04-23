@@ -27,6 +27,7 @@
     //         }
     //     ]
     // };
+    let currentJob = 0;
     function addJob() {
         const newJobTitle = prompt('Enter a title for your new job: ');
         let addedJobFilled = {
@@ -56,6 +57,7 @@
         for (let i = 0;i<=jobs.length-1;i++){
             if (jobs[i].selected == true){
                 console.log(jobs[i].id);
+                currentJob = jobs[i].id;
             }
         }
     }
@@ -70,20 +72,20 @@
     //     updateJobs();
     // }
 
-    // function addNode() {
-    //     const newNodeTitle = prompt('Enter a title for your new node: ');
-    //     let hierarchyDefined = jobs[selectedJob].tree[0].hierarchy !== undefined ? 1 : 0;
-    //     let currentHierarchy = hierarchyDefined ? jobs[selectedJob].hierarchy : [1];
-    //     let newNodeID = [currentHierarchy, jobs[selectedJob].tree.length]
-    //     let addedNodeFilled = {
-    //         nodeID: [currentHierarchy, jobs[selectedJob].tree.length],
-    //         hierarchy: currentHierarchy,
-    //         subject: newNodeTitle
-    //     };
-    //     jobs[selectedJob].tree = [...jobs[selectedJob].tree, addedNodeFilled];
-    //     console.log("Selected Jobs in main is: ");
-    //     console.log(selectedJob);
-    // }
+    function addNode() {
+        const newNodeTitle = prompt('Enter a title for your new node: ');
+        let hierarchyDefined = jobs[selectedJob].tree[0].hierarchy !== undefined ? 1 : 0;
+        let currentHierarchy = hierarchyDefined ? jobs[selectedJob].hierarchy : [1];
+        let newNodeID = [currentHierarchy, jobs[selectedJob].tree.length]
+        let addedNodeFilled = {
+            nodeID: [currentHierarchy, jobs[selectedJob].tree.length],
+            hierarchy: currentHierarchy,
+            subject: newNodeTitle
+        };
+        jobs[selectedJob].tree = [...jobs[selectedJob].tree, addedNodeFilled];
+        console.log("Selected Jobs in main is: ");
+        console.log(selectedJob);
+    }
     
 </script>
 
@@ -102,20 +104,21 @@
 </jobContainer>
 
 <nodeContainer>
-    <!-- <button class="addButton" on:click={addNode}>
+    <button class="addButton" on:click={addNode}>
         +
     </button>
-    {#if jobs[selectedJob].selected == true}
-    {#each jobs[selectedJob].tree as n}
-
+    <!-- {#if jobs[selectedJob].selected == true} -->
+    {#if jobs.length > 0 }
+    {#each jobs[currentJob].tree as n}
     <button class="node">
         <h1>
             {n.subject}
         </h1>
     </button>
-
     {/each}
-    {/if} -->
+    {/if}
+
+    <!-- {/if} -->
 </nodeContainer>
 
 </div>
